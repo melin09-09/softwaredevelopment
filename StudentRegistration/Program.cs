@@ -4,7 +4,15 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("Възраст: ");
+            if (int.TryParse(Console.ReadLine(), out int age))
+            {
+                Console.WriteLine($"Възраст: {age}"); 
+            }  
+            else
+            {
+                Console.WriteLine("Невалидна възраст."); 
+            }
         }
     }
 }
