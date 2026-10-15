@@ -5,6 +5,7 @@ namespace TodoManager2409
     internal class Program
     {
         static List<Zadacha> tasks = new List<Zadacha>();
+        private static int nextId = 1;
         static void Main(string[] args)
         {
             while(true)
@@ -60,12 +61,11 @@ namespace TodoManager2409
             Console.Write("Въведете описание: ");
             string description = Console.ReadLine();
             Console.Write("Въведете краен срок: ");
-            string date = Console.ReadLine();
-            //Console.Write("Проверете дали задачата е изпълнена: ");
-            bool isCompleted = false;
-
-            Zadacha task = new Zadacha(title, description, date, false);
+            DateTime date = DateTime.Parse(Console.ReadLine());
+           
+            Zadacha task = new Zadacha(nextId, title, description, date, false);
             tasks.Add(task);
+            nextId++;
             Console.WriteLine("Задачата е добавена!");
         }
 
@@ -76,55 +76,92 @@ namespace TodoManager2409
                 Console.WriteLine("Няма въведени задачи");
                 return;
             }
-            for (int i = 0; i < tasks.Count; i++)
+            else
             {
-                Console.WriteLine("Задача " + (i + 1));
-                Console.WriteLine("Заглавие: " + tasks[i].Title);
-                Console.WriteLine("Описание: " + tasks[i].Description);
-                Console.WriteLine("Краен срок: " + tasks[i].Date);
+                foreach (Zadacha todoItem in tasks)
+                {
+                    string status = "";
+                    if (todoItem.IsCompleted) status = "Завършена";
+                    else status = "Незавършена";
 
-                if (tasks[i].IsCompleted == true)
-                {
-                    Console.WriteLine("Изпълнена");
-                }
-                else
-                {
-                    Console.WriteLine("Не е изпълнена");
+                    Console.WriteLine($"{todoItem.Id}. {todoItem.Title}" +
+                        $"\n {todoItem.Description}" +
+                        $"\n {todoItem.Date:d}" +
+                        $"\n Статус: {status}");
                 }
             }
+            
         }
         static void CompleteTask()
         {
-            ShowTasks();
-            if (tasks.Count == 0) return;
-            Console.WriteLine("Въведи номер на задачата: ");
-            int nomer = int.Parse(Console.ReadLine());
-
-            if(nomer >= 1 && nomer <= tasks.Count)
+            //ShowTasks();
+            //if (tasks.Count == 0) return;
+            //Console.WriteLine("Въведи номер на задачата: ");
+            
+            Console.Clear();
+            Console.WriteLine("=====  Маркирай задача като завършена =======");
+            foreach (Zadacha todoItem in tasks)
             {
-                tasks[nomer - 1].IsCompleted = true;
+                Console.WriteLine($"{todoItem.Id}. {todoItem.Title}");
+            }
+            Console.Write("Избери Id: ");
+            int id = int.Parse(Console.ReadLine());
+
+            Zadacha completedTask = null;
+
+            foreach (Zadacha todoItem in tasks)
+            {
+                if (todoItem.Id == id)
+                {
+                    completedTask = todoItem;
+                    break;
+                }
+            }
+            
+            //int nomer = int.Parse(Console.ReadLine());
+            if (completedTask != null)
+            {
+                completedTask.IsCompleted = true;
                 Console.WriteLine("Задачата е изпълнена");
             }
             else
             {
-                Console.WriteLine("Няма такава задача");
+                Console.WriteLine("Няма такава задача с ID");
             }
         }
         static void DeleteTask()
         {
-            ShowTasks();
-            if(tasks.Count == 0) return;
-            Console.Write("Въведи номер на задачата: ");
-            int nomer = int.Parse(Console.ReadLine());
-            if (nomer >= 1 && nomer <= tasks.Count)
+            //ShowTasks();
+            //if(tasks.Count == 0) return;
+            //Console.Write("Въведи номер на задачата: ");
+            //int nomer = int.Parse(Console.ReadLine());
+
+            foreach (Zadacha todoItem in tasks)
             {
-                tasks.RemoveAt(nomer - 1);
-                Console.WriteLine("Задачата е изтрита");
+                Console.WriteLine($"{todoItem.Id}. {todoItem.Title}");
+            }
+            Console.Write("Избери Id: ");
+            int id = int.Parse(Console.ReadLine());
+            Zadacha deleteTask = null;
+
+            foreach (Zadacha todoItem in tasks)
+            {
+                if (todoItem.Id == id)
+                {
+                    deleteTask = todoItem;
+                    break;
+                }
+            }
+
+            if (deleteTask != null)
+            {
+                tasks.Remove(deleteTask);
+                Console.WriteLine("Задачата е изтрита.");
             }
             else
-            {
-                Console.WriteLine("Няма такъв номер");
-            }
+                Console.WriteLine("Няма задача с такова ID");
+
+
         }
     }
 }
