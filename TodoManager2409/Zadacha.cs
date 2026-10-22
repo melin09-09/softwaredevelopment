@@ -32,17 +32,17 @@ namespace TodoManager2409
             IsCompleted = isCompleted;
         }
 
-        public void PrintTasks()
-        {
-            if (IsCompleted == true)
-            {
-                Console.Write("Zaglavie: " + Title +  "Opisanie: " + Description + "Kraen srok: " + Date);
-            }
-            else
-            {
-                Console.Write("Zaglavie: " + Title + "Opisanie: " + Description + "Kraen srok: " + Date + "Статус: не е изпълнена ");
-            }
+        //public void PrintTasks()
+        //{
+        //    if (IsCompleted == true)
+        //    {
+        //        Console.Write("Zaglavie: " + Title +  "Opisanie: " + Description + "Kraen srok: " + Date);
+        //    }
+        //    else
+        //    {
+        //        Console.Write("Zaglavie: " + Title + "Opisanie: " + Description + "Kraen srok: " + Date + "Статус: не е изпълнена ");
+        //    }
             
-        }
+        //}
     }
 }
