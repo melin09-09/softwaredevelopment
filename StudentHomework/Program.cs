@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace StudentRegistration
+﻿namespace StudentHomework
 {
     public class Student
     {
@@ -69,8 +67,8 @@ namespace StudentRegistration
                 throw new ArgumentOutOfRangeException(
                     nameof(birthDate),
                     "Дата на раждане не може да е бъдеща дата.");
-            }   
-            
+            }
+
             Id = id;
             Name = name;
             Age = age;
@@ -91,7 +89,7 @@ namespace StudentRegistration
         static void Main(string[] args)
         {
             while (true)
-            {   
+            {
                 Console.WriteLine("=== ДАННИ ЗА УЧЕНИК ===");
                 int id = nextId;
                 Console.WriteLine("Id: " + id);
@@ -127,7 +125,7 @@ namespace StudentRegistration
 
                     Console.WriteLine("Ученикът е добавен");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine("Грешка: " + ex.Message);
                     Console.WriteLine("Опитай да въведеш данните отново");
